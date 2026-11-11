@@ -1,0 +1,23 @@
+# Node dependencies (auto-installed by start-public-showcase.ps1)
+node_modules/
+**/node_modules/
+
+# Environment secrets (share .env privately with team; auto-copied from .env.example if missing)
+.env
+.env.local
+.env.*.local
+**/.env
+**/.env.local
+
+# Cloudflare tunnel binary & runtime logs (cloudflared.exe is auto-downloaded on first run)
+cloudflared.exe
+**/cloudflared.exe
+tunnel*.log
+**/*.log
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+npm-debug.log*
+.vscode/
+.idea/
