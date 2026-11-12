@@ -71,6 +71,7 @@ app.use(express.static(frontendPath, {
     }
   }
 }));
+app.use('/api/legal', require('./routes/legal'));
 
 // Health Check
 app.get('/api/health', (req, res) => {
