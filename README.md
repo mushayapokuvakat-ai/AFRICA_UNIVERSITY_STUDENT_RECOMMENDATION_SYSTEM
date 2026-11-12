@@ -35,13 +35,13 @@ The **Africa University Student Portfolio & Recommendation System (AURECO)** is 
 
 ## 👥 Development Team & Collaborators
 
-| Collaborator | GitHub Username | University Email | Role & Module Ownership |
-| :--- | :--- | :--- | :--- |
-| **Tendai Mushayapokuvaka** | [`mushayapokuvakat-ai`](https://github.com/mushayapokuvakat-ai) | `mushayapokuvakat@africau.edu` | **Project Lead & Monorepo Architect**: Root orchestration, public tunnel launchers, security audits, and release pipelines. |
-| **T. Manyika** | [`tmanyika487`](https://github.com/tmanyika487) | `tmanyika@africau.edu` | **Backend Core & Database**: Neon PostgreSQL schema, database migrations, connection pooling, seed fixtures, and Express server bootstrap. |
-| **Shaniel Mpofu** | [`leniash`](https://github.com/leniash) | `shaniel.mpofu@africau.edu` | **Authentication & Security**: JWT session management, RBAC authorization middleware, password hashing, and dual-path supervisor provisioning. |
-| **Mutovol** | [`mutovol-tech`](https://github.com/mutovol-tech) | `mutovol@africau.edu` | **AI Services & Communications**: Groq/Gemini AI letter generation service, AU letterhead PDF compiler, and automated SMTP email notification pipeline. |
-| **Kinnah Nyamapfene** | [`1kinnah`](https://github.com/1kinnah) | `nyamapfenet@africau.edu` | **UI/UX & Frontend Portals**: Responsive SPA shell, interactive transcripts, applicant preview modals, and the Smart Opportunities & Internships board. |
+| Collaborator               | GitHub Username                                                 | University Email               | Role & Module Ownership                                                                                                                                 |
+| :------------------------- | :-------------------------------------------------------------- | :----------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Tendai Mushayapokuvaka** | [`mushayapokuvakat-ai`](https://github.com/mushayapokuvakat-ai) | `mushayapokuvakat@africau.edu` | **Project Lead & Monorepo Architect**: Root orchestration, public tunnel launchers, security audits, and release pipelines.                             |
+| **T. Manyika**             | [`tmanyika487`](https://github.com/tmanyika487)                 | `tmanyika@africau.edu`         | **Backend Core & Database**: Neon PostgreSQL schema, database migrations, connection pooling, seed fixtures, and Express server bootstrap.              |
+| **Shaniel Mpofu**          | [`leniash`](https://github.com/leniash)                         | `shaniel.mpofu@africau.edu`    | **Authentication & Security**: JWT session management, RBAC authorization middleware, password hashing, and dual-path supervisor provisioning.          |
+| **Mutovol**                | [`mutovol-tech`](https://github.com/mutovol-tech)               | `mutovol@africau.edu`          | **AI Services & Communications**: Groq/Gemini AI letter generation service, AU letterhead PDF compiler, and automated SMTP email notification pipeline. |
+| **Kinnah Nyamapfene**      | [`1kinnah`](https://github.com/1kinnah)                         | `nyamapfenet@africau.edu`      | **UI/UX & Frontend Portals**: Responsive SPA shell, interactive transcripts, applicant preview modals, and the Smart Opportunities & Internships board. |
 
 ---
 
@@ -67,15 +67,20 @@ The **Africa University Student Portfolio & Recommendation System (AURECO)** is 
 ## 🚀 Quick Start Guide
 
 ### Prerequisites
+
 - Node.js (v18.0.0 or higher recommended)
 - Git
 
 ### 1-Click Launch (Recommended for Windows)
+
 Simply double-click:
+
 ```cmd
 run-public-showcase.bat
 ```
+
 This launcher automatically:
+
 1. Installs backend dependencies (if needed).
 2. Verifies the Neon database connection.
 3. Boots the Express API server on `http://localhost:5000`.
@@ -85,6 +90,7 @@ This launcher automatically:
 ### Manual Setup
 
 #### 1. Backend Server
+
 ```bash
 cd AURECO_BACK
 cp .env.example .env
@@ -95,7 +101,9 @@ npm start
 ```
 
 #### 2. Frontend Portal
+
 Serve `AURECO_FRONT` using any standard HTTP server (or Live Server):
+
 ```bash
 cd AURECO_FRONT
 npx serve -l 8080 .
@@ -104,6 +112,7 @@ npx serve -l 8080 .
 ---
 
 ## 🔒 Security & Data Integrity
+
 - Passwords hashed using `bcryptjs` with high salt rounds.
 - Strict Role-Based Access Control (`student`, `staff`, `supervisor`, `admin`).
 - Database secrets and private keys isolated in `.env` (excluded from version control).
@@ -112,4 +121,5 @@ npx serve -l 8080 .
 ---
 
 ## 📄 License
+
 Africa University College of Engineering and Technology (CET). All rights reserved.
