@@ -41,7 +41,7 @@ The **Africa University Student Portfolio & Recommendation System (AURECO)** is 
 | **T. Manyika**             | [`tmanyika487`](https://github.com/tmanyika487)                 | `tmanyika@africau.edu`         | **Backend Core & Database**: Neon PostgreSQL schema, database migrations, connection pooling, seed fixtures, and Express server bootstrap.              |
 | **Shaniel Mpofu**          | [`leniash`](https://github.com/leniash)                         | `shaniel.mpofu@africau.edu`    | **Authentication & Security**: JWT session management, RBAC authorization middleware, password hashing, and dual-path supervisor provisioning.          |
 | **Mutovol**                | [`mutovol-tech`](https://github.com/mutovol-tech)               | `mutovol@africau.edu`          | **AI Services & Communications**: Groq/Gemini AI letter generation service, AU letterhead PDF compiler, and automated SMTP email notification pipeline. |
-| **Kinnah Nyamapfene**      | [`1kinnah`](https://github.com/1kinnah)                         | `nyamapfenet@africau.edu`      | **UI/UX & Frontend Portals**: Responsive SPA shell, interactive transcripts, applicant preview modals, and the Smart Opportunities & Internships board. |
+| **Tawananyasha Nyamapfene**      | [`1kinnah`](https://github.com/1kinnah)                         | `nyamapfenet@africau.edu`      | **UI/UX & Frontend Portals**: Responsive SPA shell, interactive transcripts, applicant preview modals, and the Smart Opportunities & Internships board. |
 
 ---
 
