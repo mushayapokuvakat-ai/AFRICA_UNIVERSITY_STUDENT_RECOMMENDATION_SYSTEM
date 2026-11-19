@@ -110,6 +110,17 @@ npx serve -l 8080 .
 ```
 
 ---
+## 🛠️ Technology Stack
+
+The Africa University Student Recommendation System was developed using a combination of web technologies and scripting languages.
+
+| Technology | Purpose |
+|---|---|
+| JavaScript | Application logic and interactive functionality |
+| CSS | Styling and user interface design |
+| HTML | Structure of the web application |
+| PowerShell | Windows scripting and automation |
+| Batchfile | Command-line scripts and automation |
 
 ## 🔒 Security & Data Integrity
 
