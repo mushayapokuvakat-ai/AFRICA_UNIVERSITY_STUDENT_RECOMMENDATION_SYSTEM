@@ -1,10 +1,10 @@
 @echo off
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
-title Africa University Student Portfolio - Live Showcase (v9 - Opportunities & Applicant Dossier)
+title Africa University Student Portfolio - Live Public Server (v10 - Verified Tunnel, LAN & Email Sync)
 echo ========================================================
 echo   Africa University Student Portfolio ^& Recommendation
-echo             LIVE PUBLIC SHOWCASE LAUNCHER (v9)
+echo          LIVE PUBLIC SERVER ^& SHOWCASE LAUNCHER (v10)
 echo ========================================================
 echo.
 
@@ -17,7 +17,10 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-echo Starting showcase environment...
+REM Flush stale DNS cache so newly created public tunnel URLs always resolve immediately
+ipconfig /flushdns >nul 2>&1
+
+echo Starting live server and verified public tunnel on this machine...
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0start-public-showcase.ps1"
 if %ERRORLEVEL% NEQ 0 (
     echo.

@@ -5,6 +5,21 @@ const { query } = require('../config/db');
 const { requireAuth } = require('../middleware/auth');
 const emailService = require('../services/emailService');
 
+function resolveRequestOrigin(req) {
+  if (req.headers.origin && /^https?:\/\//i.test(req.headers.origin)) {
+    return req.headers.origin.replace(/\/+$/, '');
+  }
+  if (req.headers.referer) {
+    try {
+      const u = new URL(req.headers.referer);
+      return `${u.protocol}//${u.host}`;
+    } catch (_) {}
+  }
+  const proto = req.headers['x-forwarded-proto'] || req.protocol || 'http';
+  const host = req.headers['x-forwarded-host'] || req.get('host');
+  return host ? `${proto}://${host}` : '';
+}
+
 /**
  * POST /api/letters/request
  * Dispatches a recommendation letter request and generates guest access code if external
@@ -98,7 +113,8 @@ router.post('/request', requireAuth, async (req, res) => {
         attachments: newLetter.attachments,
         accessCode,
         token,
-        isGuest
+        isGuest,
+        origin: resolveRequestOrigin(req)
       });
     } catch (mailErr) {
       console.error('Failed to dispatch recommendation request email:', mailErr.message);
@@ -238,7 +254,8 @@ router.post('/verify-activity', requireAuth, async (req, res) => {
         evidenceFile,
         accessCode,
         token,
-        isGuest
+        isGuest,
+        origin: resolveRequestOrigin(req)
       });
     } catch (mailErr) {
       console.error('Failed to dispatch activity verification email:', mailErr.message);

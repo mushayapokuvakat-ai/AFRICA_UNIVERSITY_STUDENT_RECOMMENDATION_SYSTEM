@@ -1,6 +1,49 @@
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 const nodemailer = require('nodemailer');
 const { query } = require('../config/db');
+
+function refreshEnvFromDisk() {
+  try {
+    const envPath = path.resolve(__dirname, '../../.env');
+    if (fs.existsSync(envPath)) {
+      const envText = fs.readFileSync(envPath, 'utf8');
+      const feMatch = envText.match(/^FRONTEND_URL=(.+)$/m);
+      if (feMatch && feMatch[1] && feMatch[1].trim()) {
+        process.env.FRONTEND_URL = feMatch[1].trim();
+      }
+      const lanMatch = envText.match(/^LAN_URL=(.+)$/m);
+      if (lanMatch && lanMatch[1] && lanMatch[1].trim()) {
+        process.env.LAN_URL = lanMatch[1].trim();
+      }
+    }
+  } catch (_) {}
+}
+
+function feBase(preferredOrigin) {
+  // 1. Always re-read .env on disk first so the active tunnel URL written by the launcher is authoritative
+  refreshEnvFromDisk();
+  const configured = (process.env.FRONTEND_URL || '').trim().replace(/\/+$/, '');
+  if (configured && !/localhost|127\.0\.0\.1/i.test(configured)) {
+    return configured;
+  }
+  // 2. If .env is localhost, check if the student's browser sent a live public Origin/Host
+  if (preferredOrigin && /^https?:\/\//i.test(preferredOrigin) && !/localhost|127\.0\.0\.1/i.test(preferredOrigin)) {
+    return preferredOrigin.replace(/\/+$/, '');
+  }
+  if (configured) return configured;
+  if (preferredOrigin && /^https?:\/\//i.test(preferredOrigin)) {
+    return preferredOrigin.replace(/\/+$/, '');
+  }
+  return 'http://localhost:5000';
+}
+
+function lanBase() {
+  refreshEnvFromDisk();
+  const lan = (process.env.LAN_URL || '').trim().replace(/\/+$/, '');
+  return lan || '';
+}
 
 function getTransporter() {
   const host = process.env.SMTP_HOST || 'smtp.gmail.com';
@@ -181,17 +224,21 @@ async function sendVerificationCode(email, code, stage) {
 }
 
 async function sendLetterRequestNotification(params, legacyStudentName, legacyPurpose) {
-  let to, recipientName, studentName, studentProgramme, purpose, note, accessCode, token, isGuest, attachments;
+  let to, recipientName, studentName, studentProgramme, purpose, note, accessCode, token, isGuest, attachments, origin;
   if (typeof params === 'object') {
-    ({ to, recipientName, studentName, studentProgramme, purpose, note, accessCode, token, isGuest, attachments } = params);
+    ({ to, recipientName, studentName, studentProgramme, purpose, note, accessCode, token, isGuest, attachments, origin } = params);
   } else {
     to = params;
     studentName = legacyStudentName;
     purpose = legacyPurpose;
   }
 
-  const feUrl = process.env.FRONTEND_URL || 'https://africa-university-student-recommendation-front.vercel.app';
-  const targetLink = isGuest && token ? `${feUrl}/#/guest/letter/${token}` : `${feUrl}/#/login`;
+  const feUrl = feBase(origin);
+  const lanUrl = lanBase();
+  const routeHash = isGuest && token ? `/#/guest/letter/${token}` : `/#/login`;
+  const targetLink = `${feUrl}${routeHash}`;
+  const lanFallbackLink = lanUrl ? `${lanUrl}${routeHash}` : '';
+  const localFallbackLink = `http://localhost:5000${routeHash}`;
   const subject = `Recommendation Letter Request: ${studentName || 'Student'}`;
 
   const hasAttachments = Array.isArray(attachments) && attachments.length > 0;
@@ -232,11 +279,11 @@ async function sendLetterRequestNotification(params, legacyStudentName, legacyPu
         </div>
       ` : ''}
 
-      ${isGuest && accessCode ? `
+      ${accessCode ? `
         <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 16px; margin: 20px 0; text-align: center;">
-          <div style="font-size: 12px; font-weight: bold; color: #1e40af; text-transform: uppercase; letter-spacing: 1px;">Your Secure One-Time Access Code</div>
+          <div style="font-size: 12px; font-weight: bold; color: #1e40af; text-transform: uppercase; letter-spacing: 1px;">Your Secure 6-Digit Access Code</div>
           <div style="font-size: 28px; font-weight: bold; letter-spacing: 4px; color: #1e3a8a; margin: 8px 0; font-family: monospace;">${accessCode}</div>
-          <p style="margin: 0; font-size: 12px; color: #3b82f6;">No account needed. Use this code or click the direct button below to access the recommendation portal.</p>
+          <p style="margin: 0; font-size: 12px; color: #3b82f6;">No account needed. Click the button below, or enter this 6-digit code under <b>Guest Access</b> on the portal.</p>
         </div>
       ` : ''}
 
@@ -249,6 +296,10 @@ async function sendLetterRequestNotification(params, legacyStudentName, legacyPu
           ${isGuest ? 'Open Guest Recommendation Portal' : 'Open Staff Portal'}
         </a>
       </div>
+      <div style="font-size: 12px; color: #64748b; margin-top: 14px; text-align: center; line-height: 1.6;">
+        ${lanFallbackLink && lanUrl !== feUrl ? `<div>On the same Wi-Fi / LAN? <a href="${lanFallbackLink}" style="color: #1e40af; font-weight: bold;">Open via Local Network (${lanFallbackLink})</a></div>` : ''}
+        ${feUrl !== 'http://localhost:5000' ? `<div>On the server machine? <a href="${localFallbackLink}" style="color: #1e40af; font-weight: bold;">Open via Localhost (${localFallbackLink})</a></div>` : ''}
+      </div>
       <p style="font-size: 11px; color: #94a3b8; margin-top: 24px; text-align: center;">
         Africa University, Mutare, Zimbabwe · Student Portfolio & Verified Credentials System
       </p>
@@ -259,14 +310,18 @@ async function sendLetterRequestNotification(params, legacyStudentName, legacyPu
     to,
     subject,
     html,
-    text: `${studentName} requested a recommendation letter for ${purpose}.${hasAttachments ? ` (${attachments.length} document(s) attached)` : ''} Open: ${targetLink}`,
+    text: `${studentName} requested a recommendation letter for ${purpose}.${hasAttachments ? ` (${attachments.length} document(s) attached)` : ''} Open: ${targetLink} (Local fallback: ${localFallbackLink} | Access Code: ${accessCode || 'N/A'})`,
     attachments: hasAttachments ? attachments : undefined
   });
 }
 
-async function sendVerificationRequestNotification({ to, verifierName, studentName, activityTitle, activityType, activityWhere, evidenceFile, accessCode, token, isGuest }) {
-  const feUrl = (process.env.FRONTEND_URL || 'http://localhost:5000').replace(/\/+$/, '');
-  const verifyLink = token ? `${feUrl}/#/guest/verify/${token}` : `${feUrl}/#/login`;
+async function sendVerificationRequestNotification({ to, verifierName, studentName, activityTitle, activityType, activityWhere, evidenceFile, accessCode, token, isGuest, origin }) {
+  const feUrl = feBase(origin);
+  const lanUrl = lanBase();
+  const routeHash = token ? `/#/guest/verify/${token}` : `/#/login`;
+  const verifyLink = `${feUrl}${routeHash}`;
+  const lanFallbackLink = lanUrl ? `${lanUrl}${routeHash}` : '';
+  const localFallbackLink = `http://localhost:5000${routeHash}`;
   const staffLoginLink = `${feUrl}/#/login`;
   const subject = `Activity Verification Request: ${studentName} — ${activityTitle}`;
   const attachments = (evidenceFile && evidenceFile.data) ? [evidenceFile] : [];
@@ -302,7 +357,7 @@ async function sendVerificationRequestNotification({ to, verifierName, studentNa
         <div style="background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 6px; padding: 16px; margin: 20px 0; text-align: center;">
           <div style="font-size: 12px; font-weight: bold; color: #065f46; text-transform: uppercase; letter-spacing: 1px;">Your 6-Digit Verification Code</div>
           <div style="font-size: 28px; font-weight: bold; letter-spacing: 4px; color: #047857; margin: 8px 0; font-family: monospace;">${accessCode}</div>
-          <p style="margin: 0; font-size: 12px; color: #059669;">Click the button below to verify directly (no account required), or sign in to the Staff Portal.</p>
+          <p style="margin: 0; font-size: 12px; color: #059669;">Click the button below to verify directly (no account required), or enter this 6-digit code under <b>Guest Access</b> on the portal.</p>
         </div>
       ` : ''}
 
@@ -311,8 +366,12 @@ async function sendVerificationRequestNotification({ to, verifierName, studentNa
           Review &amp; Verify Activity Now
         </a>
       </div>
+      <div style="font-size: 12px; color: #64748b; margin-top: 14px; text-align: center; line-height: 1.6;">
+        ${lanFallbackLink && lanUrl !== feUrl ? `<div>On the same Wi-Fi / LAN? <a href="${lanFallbackLink}" style="color: #047857; font-weight: bold;">Open via Local Network (${lanFallbackLink})</a></div>` : ''}
+        ${feUrl !== 'http://localhost:5000' ? `<div>On the server machine? <a href="${localFallbackLink}" style="color: #047857; font-weight: bold;">Open via Localhost (${localFallbackLink})</a></div>` : ''}
+      </div>
       ${!isGuest ? `
-        <p style="font-size: 12px; color: #64748b; margin-top: 16px; text-align: center;">
+        <p style="font-size: 12px; color: #64748b; margin-top: 10px; text-align: center;">
           Registered Africa University Staff? You can also review this under "Entries to check" in the <a href="${staffLoginLink}" style="color: #059669;">Staff Portal</a>.
         </p>
       ` : ''}
@@ -323,7 +382,7 @@ async function sendVerificationRequestNotification({ to, verifierName, studentNa
     to,
     subject,
     html,
-    text: `${studentName} requested verification for "${activityTitle}". Verify here: ${verifyLink} (Code: ${accessCode})`,
+    text: `${studentName} requested verification for "${activityTitle}". Verify here: ${verifyLink} (Local fallback: ${localFallbackLink} | Code: ${accessCode})`,
     attachments: attachments.length ? attachments : undefined
   });
 }
@@ -339,10 +398,6 @@ async function sendLetterReadyNotification(studentEmail, studentName, lecturerNa
     </div>
   `;
   return sendEmail({ to: studentEmail, subject, html, text: `${lecturerName} has completed your letter of recommendation.` });
-}
-
-function feBase() {
-  return (process.env.FRONTEND_URL || 'http://localhost:5000').replace(/\/+$/, '');
 }
 
 function escHtml(s) {

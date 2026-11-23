@@ -1,14 +1,12 @@
 /* Frontend settings. Configured for Africa University Portfolio & Recommendation System */
 (function () {
   var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  var isTunnel = window.location.hostname.includes('trycloudflare.com') ||
-                 window.location.hostname.includes('loca.lt') ||
-                 window.location.hostname.includes('ngrok') ||
-                 /^(172|192|10)\./.test(window.location.hostname);
+  var isVercel = window.location.hostname.endsWith('.vercel.app');
+  var isTunnel = !isLocal && !isVercel;
 
-  // Point to local development backend, public showcase tunnel, or Render production deployment
+  // Point to local development backend, public showcase tunnel (Cloudflare / localhost.run / LAN), or Render deployment
   var defaultBase = (isLocal || isTunnel)
-    ? (window.location.port === '8000' ? 'http://localhost:5000' : window.location.origin)
+    ? ((window.location.port === '8000' || window.location.port === '8080') ? 'http://localhost:5000' : window.location.origin)
     : 'https://aureco-back.onrender.com';
 
   window.AU_CONFIG = {
