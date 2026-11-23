@@ -1,67 +1,243 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Africa University | Student Portfolio System</title>
-<link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="stylesheet" href="css/styles.css?v=11">
-</head>
-<body>
-<div id="progress-bar" aria-hidden="true"></div>
-<div id="app"></div>
-<div id="au-portfolio" aria-label="Student portfolio">
-<header class="au-nav"><div class="au-wrap"><b>Africa University</b><nav aria-label="Portfolio"><ul>
-<li><button type="button" data-au-go="portfolio">Home</button></li><li><button type="button" data-au-go="aau">About</button></li><li><button type="button" data-au-go="facilities">Facilities</button></li><li><button type="button" data-au-go="milestones">Milestones</button></li><li><button type="button" data-au-go="contact">Contact</button></li>
-</ul></nav></div></header>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Africa University | Student Portfolio System</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="stylesheet" href="css/styles.css?v=11" />
+  </head>
+  <body>
+    <div id="progress-bar" aria-hidden="true"></div>
+    <div id="app"></div>
+    <div id="au-portfolio" aria-label="Student portfolio">
+      <header class="au-nav">
+        <div class="au-wrap">
+          <b>Africa University</b>
+          <nav aria-label="Portfolio">
+            <ul>
+              <li>
+                <button type="button" data-au-go="portfolio">Home</button>
+              </li>
+              <li><button type="button" data-au-go="aau">About</button></li>
+              <li>
+                <button type="button" data-au-go="facilities">
+                  Facilities
+                </button>
+              </li>
+              <li>
+                <button type="button" data-au-go="milestones">
+                  Milestones
+                </button>
+              </li>
+              <li>
+                <button type="button" data-au-go="contact">Contact</button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </header>
 
-<section class="au-sec alt" id="au-aau"><div class="au-wrap">
-<h2 class="au-r">About Africa University</h2>
-<p class="au-sub au-r"><b>Empowering Africa’s Next Generation of Innovators and Leaders.</b> Located in Mutare, Zimbabwe, Africa University is a pioneering, pan-African institution dedicated to academic excellence, leadership development, and transformative community impact. As a truly continental university, we bring together students, faculty, and researchers from across Africa to learn, collaborate, and build solutions for the continent’s most pressing challenges.</p>
-<p class="au-sub au-r" style="margin-top:-14px">Our academic environment fosters a unique blend of rigorous classroom instruction, cross-cultural collaboration, and hands-on innovation. We believe in education that translates directly into real-world value, equipping our students with technical expertise, critical thinking skills, and a strong sense of social responsibility.</p>
-<h3 class="au-r" style="margin-bottom:14px">Our Core Pillars</h3>
-<div class="au-grid">
-<div class="au-box au-r"><h3>Academic Excellence</h3><p>Rigorous programmes across faculties, including Science, Technology, and Software Engineering, backed by dedicated faculty and distinguished scholars on the Dean’s list.</p></div>
-<div class="au-box au-r" style="--d:.07s"><h3>Pan-African Collaboration</h3><p>A diverse student body that encourages cross-cultural teamwork, broadening perspectives and preparing graduates to work seamlessly in global and regional environments.</p></div>
-<div class="au-box au-r" style="--d:.14s"><h3>Innovation &amp; Practical Impact</h3><p>Cultivating a culture where student-led initiatives, hackathons, and research projects address tangible community needs, from agricultural technology to digital campus infrastructure.</p></div>
-<div class="au-box au-r" style="--d:.21s"><h3>Leadership &amp; Character</h3><p>Going beyond textbooks to instill leadership through active student governance, tech clubs, community service, and peer mentorship programmes.</p></div></div>
-<p class="au-sub au-r" style="margin:26px 0 0">At Africa University, we are committed to shaping graduates who do not just adapt to the future, but actively build it for their communities and the wider world.</p>
-</div></section>
+      <section class="au-sec alt" id="au-aau">
+        <div class="au-wrap">
+          <h2 class="au-r">About Africa University</h2>
+          <p class="au-sub au-r">
+            <b
+              >Empowering Africa’s Next Generation of Innovators and Leaders.</b
+            >
+            Located in Mutare, Zimbabwe, Africa University is a pioneering,
+            pan-African institution dedicated to academic excellence, leadership
+            development, and transformative community impact. As a truly
+            continental university, we bring together students, faculty, and
+            researchers from across Africa to learn, collaborate, and build
+            solutions for the continent’s most pressing challenges.
+          </p>
+          <p class="au-sub au-r" style="margin-top: -14px">
+            Our academic environment fosters a unique blend of rigorous
+            classroom instruction, cross-cultural collaboration, and hands-on
+            innovation. We believe in education that translates directly into
+            real-world value, equipping our students with technical expertise,
+            critical thinking skills, and a strong sense of social
+            responsibility.
+          </p>
+          <h3 class="au-r" style="margin-bottom: 14px">Our Core Pillars</h3>
+          <div class="au-grid">
+            <div class="au-box au-r">
+              <h3>Academic Excellence</h3>
+              <p>
+                Rigorous programmes across faculties, including Science,
+                Technology, and Software Engineering, backed by dedicated
+                faculty and distinguished scholars on the Dean’s list.
+              </p>
+            </div>
+            <div class="au-box au-r" style="--d: 0.07s">
+              <h3>Pan-African Collaboration</h3>
+              <p>
+                A diverse student body that encourages cross-cultural teamwork,
+                broadening perspectives and preparing graduates to work
+                seamlessly in global and regional environments.
+              </p>
+            </div>
+            <div class="au-box au-r" style="--d: 0.14s">
+              <h3>Innovation &amp; Practical Impact</h3>
+              <p>
+                Cultivating a culture where student-led initiatives, hackathons,
+                and research projects address tangible community needs, from
+                agricultural technology to digital campus infrastructure.
+              </p>
+            </div>
+            <div class="au-box au-r" style="--d: 0.21s">
+              <h3>Leadership &amp; Character</h3>
+              <p>
+                Going beyond textbooks to instill leadership through active
+                student governance, tech clubs, community service, and peer
+                mentorship programmes.
+              </p>
+            </div>
+          </div>
+          <p class="au-sub au-r" style="margin: 26px 0 0">
+            At Africa University, we are committed to shaping graduates who do
+            not just adapt to the future, but actively build it for their
+            communities and the wider world.
+          </p>
+        </div>
+      </section>
 
-<section class="au-sec" id="au-facilities"><div class="au-wrap">
-<h2 class="au-r">Campus Facilities &amp; Infrastructure</h2>
-<p class="au-sub au-r">Modern spaces designed to support cutting-edge learning, hands-on technical training, and collaborative student research.</p>
-<div class="au-projects">
-<div class="au-box au-r"><h3>Advanced Computer &amp; Technology Labs</h3><p>Equipped with high-performance computing setups, modern development environments, and reliable fiber connectivity to power software engineering and data science projects.</p></div>
-<div class="au-box au-r" style="--d:.08s"><h3>Modern Student Residence &amp; Learning Hubs</h3><p>Safe, inclusive living spaces complemented by 24/7 digital resource centers that foster peer collaboration across diverse pan-African cultures.</p></div>
-<div class="au-box au-r" style="--d:.16s"><h3>Digital Lecture Theaters</h3><p>Smart classrooms integrated with audiovisual technology to support hybrid learning, guest lectures from international industry leaders, and interactive presentations.</p></div>
-</div></div></section>
+      <section class="au-sec" id="au-facilities">
+        <div class="au-wrap">
+          <h2 class="au-r">Campus Facilities &amp; Infrastructure</h2>
+          <p class="au-sub au-r">
+            Modern spaces designed to support cutting-edge learning, hands-on
+            technical training, and collaborative student research.
+          </p>
+          <div class="au-projects">
+            <div class="au-box au-r">
+              <h3>Advanced Computer &amp; Technology Labs</h3>
+              <p>
+                Equipped with high-performance computing setups, modern
+                development environments, and reliable fiber connectivity to
+                power software engineering and data science projects.
+              </p>
+            </div>
+            <div class="au-box au-r" style="--d: 0.08s">
+              <h3>Modern Student Residence &amp; Learning Hubs</h3>
+              <p>
+                Safe, inclusive living spaces complemented by 24/7 digital
+                resource centers that foster peer collaboration across diverse
+                pan-African cultures.
+              </p>
+            </div>
+            <div class="au-box au-r" style="--d: 0.16s">
+              <h3>Digital Lecture Theaters</h3>
+              <p>
+                Smart classrooms integrated with audiovisual technology to
+                support hybrid learning, guest lectures from international
+                industry leaders, and interactive presentations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-<section class="au-sec alt" id="au-milestones"><div class="au-wrap">
-<h2 class="au-r">Institutional Milestones &amp; History</h2>
-<p class="au-sub au-r">A legacy of academic distinction, regional leadership, and transformative impact across the African continent.</p>
-<div class="au-tl">
-<div class="au-it au-r"><span class="au-when">Legacy</span><h3>Pioneering Pan-African Legacy</h3><p>Established as a flagship institution bringing together students, faculty, and researchers from across Africa to drive homegrown technological and social solutions.</p></div>
-<div class="au-it au-r" style="--d:.08s"><span class="au-when">Standards</span><h3>Accreditation &amp; Academic Rigor</h3><p>Recognized across the region for rigorous, industry-aligned curricula spanning science, technology, agriculture, and health sciences.</p></div>
-<div class="au-it au-r" style="--d:.16s"><span class="au-when">Community</span><h3>Community-Driven Impact</h3><p>Decades of continuous service and development partnerships centered around the Mutare region, directly aligning academic research with tangible local advancement.</p></div>
-</div></div></section>
+      <section class="au-sec alt" id="au-milestones">
+        <div class="au-wrap">
+          <h2 class="au-r">Institutional Milestones &amp; History</h2>
+          <p class="au-sub au-r">
+            A legacy of academic distinction, regional leadership, and
+            transformative impact across the African continent.
+          </p>
+          <div class="au-tl">
+            <div class="au-it au-r">
+              <span class="au-when">Legacy</span>
+              <h3>Pioneering Pan-African Legacy</h3>
+              <p>
+                Established as a flagship institution bringing together
+                students, faculty, and researchers from across Africa to drive
+                homegrown technological and social solutions.
+              </p>
+            </div>
+            <div class="au-it au-r" style="--d: 0.08s">
+              <span class="au-when">Standards</span>
+              <h3>Accreditation &amp; Academic Rigor</h3>
+              <p>
+                Recognized across the region for rigorous, industry-aligned
+                curricula spanning science, technology, agriculture, and health
+                sciences.
+              </p>
+            </div>
+            <div class="au-it au-r" style="--d: 0.16s">
+              <span class="au-when">Community</span>
+              <h3>Community-Driven Impact</h3>
+              <p>
+                Decades of continuous service and development partnerships
+                centered around the Mutare region, directly aligning academic
+                research with tangible local advancement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-<section class="au-sec au-contact" id="au-contact"><div class="au-wrap">
-<h2 class="au-r">Contact</h2>
-<p class="au-sub au-r">Get in touch with Africa University.</p>
-<div class="au-info au-r">
-<div class="au-box"><h3>Physical Address</h3><p>Main University Campus, Junction of Fairview &amp; Nyanga Roads, Old Mutare, P.O. Box 1320, Mutare, Zimbabwe</p></div>
-<div class="au-box"><h3>Phone Numbers</h3><p>Main Campus / Switchboard: <a href="tel:+2638688002151">+263 8688002151</a><br>General Lines: +263 2020 68181 / 63894</p></div>
-<div class="au-box"><h3>Email</h3><p><a href="mailto:info@africau.edu">info@africau.edu</a></p></div>
-<div class="au-box"><h3>Official Website</h3><p><a href="https://africau.edu/" target="_blank" rel="noopener">africau.edu</a></p></div></div>
-<div class="au-links au-r"><a class="au-btn gold" href="mailto:info@africau.edu">Email us</a><a class="au-btn" href="https://africau.edu/" target="_blank" rel="noopener">Visit africau.edu</a><button type="button" class="au-btn" data-au-go="top">Sign in</button></div>
-</div></section>
-</div>
-<footer id="site-footer">© <span id="year"></span> Africa University. All rights reserved.</footer><div id="modal"></div><div id="toast" aria-live="polite"></div>
-<script src="js/config.js?v=11"></script>
-<script src="js/api.js?v=11"></script>
-<script src="js/hero.js?v=11"></script>
-<script src="js/public.js?v=11"></script>
-<script src="js/boot.js?v=11"></script>
-</body>
+      <section class="au-sec au-contact" id="au-contact">
+        <div class="au-wrap">
+          <h2 class="au-r">Contact</h2>
+          <p class="au-sub au-r">Get in touch with Africa University.</p>
+          <div class="au-info au-r">
+            <div class="au-box">
+              <h3>Physical Address</h3>
+              <p>
+                Main University Campus, Junction of Fairview &amp; Nyanga Roads,
+                Old Mutare, P.O. Box 1320, Mutare, Zimbabwe
+              </p>
+            </div>
+            <div class="au-box">
+              <h3>Phone Numbers</h3>
+              <p>
+                Main Campus / Switchboard:
+                <a href="tel:+2638688002151">+263 8688002151</a><br />General
+                Lines: +263 2020 68181 / 63894
+              </p>
+            </div>
+            <div class="au-box">
+              <h3>Email</h3>
+              <p><a href="mailto:info@africau.edu">info@africau.edu</a></p>
+            </div>
+            <div class="au-box">
+              <h3>Official Website</h3>
+              <p>
+                <a href="https://africau.edu/" target="_blank" rel="noopener"
+                  >africau.edu</a
+                >
+              </p>
+            </div>
+          </div>
+          <div class="au-links au-r">
+            <a class="au-btn gold" href="mailto:info@africau.edu">Email us</a
+            ><a
+              class="au-btn"
+              href="https://africau.edu/"
+              target="_blank"
+              rel="noopener"
+              >Visit africau.edu</a
+            ><button type="button" class="au-btn" data-au-go="top">
+              Sign in
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer id="site-footer">
+      © <span id="year"></span> Africa University. All rights reserved.
+    </footer>
+    <div id="modal"></div>
+    <div id="toast" aria-live="polite"></div>
+    <script src="js/config.js?v=11"></script>
+    <script src="js/api.js?v=11"></script>
+    <script src="js/hero.js?v=11"></script>
+    <script src="js/public.js?v=11"></script>
+    <script src="js/boot.js?v=11"></script>
+  </body>
 </html>
