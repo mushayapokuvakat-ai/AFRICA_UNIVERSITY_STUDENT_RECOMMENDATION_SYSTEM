@@ -81,8 +81,8 @@ These providers process data only to deliver their service. We share data with e
 
 For data requests or questions about this notice:
 
-- **Email:** [data-protection contact email]
-- **Office:** [department or office name], Africa University
+- **Email:** mushayapokuvakat@africau.edu
+- **Office:** Data Protection and Quality Assurance , Africa University
 
 ## 9. Changes to this notice
 
